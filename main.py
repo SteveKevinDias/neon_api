@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from pydantic import BaseModel # schema validation
 import psycopg2
@@ -5,6 +6,11 @@ from psycopg2.extras import RealDictCursor
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 app = FastAPI()
 
 
@@ -24,7 +30,7 @@ app.add_middleware(
     allow_headers=["*"], # Allow all headers
 )
 
-db_url = "postgresql://neondb_owner:npg_buKheXm8UDp4@ep-fancy-tooth-adkbqrj3-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+db_url = os.getenv("neon_url")
 
 # estabalish connection to database
 #install psycopyg2-binary
